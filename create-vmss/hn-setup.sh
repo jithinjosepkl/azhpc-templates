@@ -8,6 +8,8 @@ githubBranch=$(echo "$scriptUri" | cut -d'/' -f6)
 IP=`ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'`
 localip=`echo $IP | cut --delimiter='.' -f -3`
 
+echo $scriptUri > /tmp/scriptUri
+
 mkdir -p /mnt/resource/scratch
 chmod a+rwx /mnt/resource/scratch
 
