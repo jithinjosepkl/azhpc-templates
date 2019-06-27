@@ -36,6 +36,18 @@ USER=$2
 cat << EOF >> /home/$USER/.bashrc
 export WCOLL=/home/$USER/scripts/hostfile
 EOF
+
+# Load corresponding MPI library and GCC modules
+MPI_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/mpi/ -iname ${githubBranch}-*`)
+GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
+
+if [[ $MPI_MODULE_NAME ]]; then
+    cat << EOF >> /home/$USER/.bashrc
+module load ${GCC_MODULE_NAME}
+module load mpi/${MPI_MODULE_NAME}
+EOF
+fi
+
 chown $USER:$USER /home/$USER/.bashrc
 
 touch /home/$USER/scripts/hostfile
