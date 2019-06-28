@@ -25,7 +25,8 @@
 			"defaultValue": "CentOS-7.6 HPC",
 			"allowedValues": [
 				"CentOS-7.6",
-				"CentOS-7.6 HPC"
+				"CentOS-7.6 HPC",
+				"Ubuntu 18.04-LTS"
 			],
 			"metadata": {
 				"description": "The VM image of the compute nodes"
@@ -88,6 +89,12 @@
 				"publisher": "OpenLogic",
 				"offer": "CentOS-HPC",
 				"sku": "7.6",
+				"version": "latest"
+			},
+			"Ubuntu 18.04-LTS": {
+				"publisher": "Canonical",
+				"offer": "UbuntuServer",
+				"sku": "18.04-LTS",
 				"version": "latest"
 			}
 		},
