@@ -12,6 +12,9 @@ echo $scriptUri > /tmp/scriptUri
 echo $scriptUri > /tmp/scriptUri.log
 echo $githubBranch > /tmp/githubBranch.log
 
+echo $scriptUri > /home/$USER/scriptUri.log
+echo $githubBranch > /home/$USER/githubBranch.log
+
 mkdir -p /mnt/resource/scratch
 chmod a+rwx /mnt/resource/scratch
 
