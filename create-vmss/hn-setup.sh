@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 scriptUri=$1
 githubUser=$(echo "$scriptUri" | cut -d'/' -f4)
 githubRepo=$(echo "$scriptUri" | cut -d'/' -f5)
@@ -8,9 +10,14 @@ githubBranch=$(echo "$scriptUri" | cut -d'/' -f6)
 IP=`ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'`
 localip=`echo $IP | cut --delimiter='.' -f -3`
 
+touch /tmp/githubBranch.log
+touch /root/githubBranchtest.log
+echo $scriptUri
+
 echo $scriptUri > /tmp/scriptUri
 echo $scriptUri > /tmp/scriptUri.log
 echo $githubBranch > /tmp/githubBranch.log
+
 
 echo $scriptUri > /home/$USER/scriptUri.log
 echo $githubBranch > /home/$USER/githubBranch.log
@@ -42,6 +49,7 @@ systemctl restart nfs-server
 USER=$2
 cat << EOF >> /home/$USER/.bashrc
 export WCOLL=/home/$USER/scripts/hostfile
+export TEST=true
 EOF
 
 # Load corresponding MPI library and GCC modules
