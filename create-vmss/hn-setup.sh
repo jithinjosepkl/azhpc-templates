@@ -9,6 +9,8 @@ IP=`ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-
 localip=`echo $IP | cut --delimiter='.' -f -3`
 
 echo $scriptUri > /tmp/scriptUri
+echo $scriptUri > /tmp/scriptUri.log
+echo $githubBranch > /tmp/githubBranch.log
 
 mkdir -p /mnt/resource/scratch
 chmod a+rwx /mnt/resource/scratch
