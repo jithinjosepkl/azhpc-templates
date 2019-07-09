@@ -36,7 +36,7 @@ systemctl restart nfs-server
 
 USER=$2
 cat << EOF >> /home/$USER/.bashrc
-export WCOLL=/home/$USER/scripts/hostfile
+export WCOLL=/home/$USER/hostfile
 module load ${GCC_MODULE_NAME}
 EOF
 
@@ -52,8 +52,8 @@ fi
 
 chown $USER:$USER /home/$USER/.bashrc
 
-touch /home/$USER/scripts/hostfile
-chown $USER:$USER /home/$USER/scripts/hostfile
+touch /home/$USER/hostfile
+chown $USER:$USER /home/$USER/hostfile
 
 # Setup passwordless ssh to compute nodes
 ssh-keygen -f /home/$USER/.ssh/id_rsa -t rsa -N ''
