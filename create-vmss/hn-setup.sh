@@ -10,18 +10,6 @@ githubBranch=$(echo "$scriptUri" | cut -d'/' -f6)
 IP=`ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'`
 localip=`echo $IP | cut --delimiter='.' -f -3`
 
-touch /tmp/githubBranch.log
-touch /root/githubBranchtest.log
-echo $scriptUri
-
-echo $scriptUri > /tmp/scriptUri
-echo $scriptUri > /tmp/scriptUri.log
-echo $githubBranch > /tmp/githubBranch.log
-
-
-echo $scriptUri > /home/$USER/scriptUri.log
-echo $githubBranch > /home/$USER/githubBranch.log
-
 mkdir -p /mnt/resource/scratch
 chmod a+rwx /mnt/resource/scratch
 
@@ -49,7 +37,7 @@ systemctl restart nfs-server
 USER=$2
 cat << EOF >> /home/$USER/.bashrc
 export WCOLL=/home/$USER/scripts/hostfile
-export TEST=true
+module load ${GCC_MODULE_NAME}
 EOF
 
 # Load corresponding MPI library and GCC modules
@@ -58,7 +46,6 @@ GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
 
 if [[ $MPI_MODULE_NAME ]]; then
     cat << EOF >> /home/$USER/.bashrc
-module load ${GCC_MODULE_NAME}
 module load mpi/${MPI_MODULE_NAME}
 EOF
 fi
@@ -86,11 +73,10 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Add script for generating hostfile
 cd /tmp
-echo "git clone -b $githubBranch https://github.com/$githubUser/$githubRepo.git"
 git clone -b $githubBranch https://github.com/$githubUser/$githubRepo.git
-cd azure-quickstart-templates/create-hpc-vmss-linux/scripts/
+cd azure-quickstart-templates/create-vmss/scripts/
 mkdir -p /home/$USER/scripts
 cp -r * /home/$USER/scripts/
 chmod +x /home/$USER/scripts/*
 chown $USER:$USER /home/$USER/scripts
-cd /tmp && rm -rf /tmp/*
+rm -rf /tmp/*
