@@ -79,4 +79,4 @@ mkdir -p /home/$USER/scripts
 cp -r * /home/$USER/scripts/
 chmod +x /home/$USER/scripts/*
 chown $USER:$USER /home/$USER/scripts
-rm -rf /tmp/*
+cd && rm -rf /tmp/*
