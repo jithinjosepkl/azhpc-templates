@@ -35,14 +35,15 @@ systemctl start nfs-idmap
 systemctl restart nfs-server
 
 USER=$2
+GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
+
 cat << EOF >> /home/$USER/.bashrc
 export WCOLL=/home/$USER/hostfile
 module load ${GCC_MODULE_NAME}
 EOF
 
-# Load corresponding MPI library and GCC modules
+# Load corresponding MPI library (based on branch name)
 MPI_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/mpi/ -iname ${githubBranch}-*`)
-GCC_MODULE_NAME=$(basename `find /usr/share/Modules/modulefiles/ -iname gcc-*`)
 
 if [[ $MPI_MODULE_NAME ]]; then
     cat << EOF >> /home/$USER/.bashrc
@@ -51,7 +52,6 @@ EOF
 fi
 
 chown $USER:$USER /home/$USER/.bashrc
-
 touch /home/$USER/hostfile
 chown $USER:$USER /home/$USER/hostfile
 
