@@ -74,7 +74,7 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # Add script for generating hostfile
 cd /tmp
 git clone -b $githubBranch https://github.com/$githubUser/$githubRepo.git
-cd azure-quickstart-templates/create-vmss/scripts/
+cd azhpc-templates/create-vmss/scripts/
 mkdir -p /home/$USER/scripts
 cp -r * /home/$USER/scripts/
 chmod +x /home/$USER/scripts/*
