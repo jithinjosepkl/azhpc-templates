@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -ex
-
 scriptUri=$1
 githubUser=$(echo "$scriptUri" | cut -d'/' -f4)
 githubRepo=$(echo "$scriptUri" | cut -d'/' -f5)
